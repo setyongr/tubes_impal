@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load table_tags %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <i class="fa fa-align-justify"></i> {{ title }}
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    {% for section in sections %}
+                        <tr>
+                            <th colspan="2"><h2>{{ section.title }}</h2></th>
+                        </tr>
+                        {% for detail in section.details %}
+                            <tr>
+                                <td class="bold">{{ detail.label }}</td>
+                                {% if detail.type == 'image' %}
+                                    <td><img src="{{ detail.value }}" class="img-thumbnail img-responsive" alt=""></td>
+                                {% else %}
+                                    <td>{{ detail.value }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

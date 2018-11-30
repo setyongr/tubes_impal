@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load table_tags %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <i class="fa fa-align-justify"></i> {{ title }}
+        </div>
+        <div class="card-body">
+            <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{{ field.label }}
+                        </label>
+                        <div class="col-md-6">
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="alert alert-warning" role="alert">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="submit" class="btn btn-primary">Kirim</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

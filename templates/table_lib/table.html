@@ -1,0 +1,37 @@
+{% load helper %}
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        {% for header in table.header %}
+            <th>{{ header }}</th>
+        {% endfor %}
+        {% if table.action %}
+            <th colspan="2">Actions</th>
+        {% endif %}
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in table.get_data %}
+        <tr>
+            {% for col in table.columns %}
+                <td>{{ data|keyvalue:col.key }}</td>
+            {% endfor %}
+            {% if table.action %}
+                <td>
+                    {% if table.action_url.view %}
+                        <a class="btn btn-primary" href="{% url table.action_url.view.url data.id %}">Detail</a>
+                    {% endif %}
+                    {% if table.action_url.edit %}
+                        <a class="btn btn-secondary" href="{% url table.action_url.edit.url data.id %}">Edit</a>
+                    {% endif %}
+                    {% if table.action_url.delete %}
+                        <a class="btn btn-danger" href="{% url table.action_url.delete.url data.id %}">Delete</a>
+                    {% endif %}
+                </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
