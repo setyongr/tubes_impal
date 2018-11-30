@@ -53,8 +53,17 @@ class SparepartForm(forms.ModelForm, UserHandleMixin):
 class OrderSparepartForm(forms.ModelForm, UserHandleMixin):
     status = forms.ChoiceField(label="Status", choices=OrderSparepart.STATUS)
     def handle_user(self, user):
-        if user.jabatan != "bos":
-            self.fields["status"].initial = "Belum Disetujui"
+        if user.jabatan != "Pimpinan":
+            self.fields["status"].choices = [('Belum Disetujui', 'Belum Disetujui')]
+            if self.instance.status:
+                self.fields["status"].choices = [(self.instance.status, self.instance.status)]
+
+                if user.jabatan == "Gudang" and self.instance.status == "Disetujui":
+                    self.fields["status"].choices = [("Diproses", "Diproses"), (self.instance.status, self.instance.status)]
+
+                if user.jabatan == "Gudang" and self.instance.status == "Diproses":
+                    self.fields["status"].choices = [("Selesai", "Selesai"), (self.instance.status, self.instance.status)]
+
 
     class Meta:
         model = OrderSparepart

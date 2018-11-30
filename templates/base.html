@@ -15,7 +15,7 @@
     <link href="{% static 'coreui/node_modules/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
     <!-- Main styles for this application-->
     <link href="{% static 'coreui/src/css/style.css' %}" rel="stylesheet">
-        <link href="{% static 'coreui/src/vendors/pace-progress/css/pace.min.css' %}" rel="stylesheet">
+    <link href="{% static 'coreui/src/vendors/pace-progress/css/pace.min.css' %}" rel="stylesheet">
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 <header class="app-header navbar">
@@ -51,22 +51,67 @@
                         <i class="nav-icon icon-speedometer"></i> Dashboard
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pegawai_index' %}">
-                        <i class="nav-icon icon-drop"></i> Pegawai</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'barang_index' %}">
-                        <i class="nav-icon icon-drop"></i> Barang</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'sparepart_index' %}">
-                        <i class="nav-icon icon-drop"></i> Sparepart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'order_sparepart_index' %}">
-                        <i class="nav-icon icon-drop"></i> Order Sparepart</a>
-                </li>
+                {% if user.jabatan %}
+                    {% if user.jabatan == "Produksi" %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'barang_index' %}">
+                                <i class="nav-icon icon-drop"></i> Barang</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sparepart_index' %}">
+                                <i class="nav-icon icon-drop"></i> Sparepart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'order_sparepart_index' %}">
+                                <i class="nav-icon icon-drop"></i> Order Sparepart</a>
+                        </li>
+                    {% elif user.jabatan == "Gudang" %}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sparepart_index' %}">
+                                <i class="nav-icon icon-drop"></i> Sparepart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'order_sparepart_index' %}">
+                                <i class="nav-icon icon-drop"></i> Order Sparepart</a>
+                        </li>
+                    {% elif user.jabatan == "Marketing" %}
+                    {% elif user.jabatan == "Pimpinan" %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'pegawai_index' %}">
+                                <i class="nav-icon icon-drop"></i> Pegawai</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'barang_index' %}">
+                                <i class="nav-icon icon-drop"></i> Barang</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sparepart_index' %}">
+                                <i class="nav-icon icon-drop"></i> Sparepart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'order_sparepart_index' %}">
+                                <i class="nav-icon icon-drop"></i> Order Sparepart</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pegawai_index' %}">
+                            <i class="nav-icon icon-drop"></i> Pegawai</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'barang_index' %}">
+                            <i class="nav-icon icon-drop"></i> Barang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sparepart_index' %}">
+                            <i class="nav-icon icon-drop"></i> Sparepart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'order_sparepart_index' %}">
+                            <i class="nav-icon icon-drop"></i> Order Sparepart</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>

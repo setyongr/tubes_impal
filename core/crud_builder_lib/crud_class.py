@@ -68,6 +68,7 @@ class CrudBuilder:
         instance = get_object_or_404(self.instance, id=id)
         form = self.change_form(request.POST or None, instance=instance)
 
+        form.handle_user(request.user)
         if form.is_valid():
             form.save()
             return redirect(self.name_prefix+'_index')

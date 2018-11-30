@@ -7,7 +7,9 @@ class Pegawai(AbstractUser):
     alamat = models.CharField(max_length=255, null=True, default=None)
     JABATAN = (
         ("Marketing", "Marketing"),
-        ("Produksi", "Produksi")
+        ("Produksi", "Produksi"),
+        ("Gudang", "Gudang"),
+        ("Pimpinan", "Pimpinan")
     )
     jabatan = models.CharField(max_length=255, null=True, default=None, choices=JABATAN)
 
@@ -41,7 +43,9 @@ class OrderSparepart(models.Model):
     STATUS = (
         ("Disetujui", "Disetujui"),
         ("Tidak Disetujui", "Tidak Disetujui"),
-        ("Belum Disetujui", "Belum Disetujui")
+        ("Belum Disetujui", "Belum Disetujui"),
+        ("Diproses", "Diproses"),
+        ("Selesai", "Selesai"),
     )
     status = models.CharField(max_length=255, choices=STATUS)
     supplier = models.ForeignKey('core.Supplier', on_delete=models.CASCADE, related_name='orders')
