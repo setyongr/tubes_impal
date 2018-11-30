@@ -29,7 +29,7 @@ SECRET_KEY = '&ku1&nt46!p52=y1k)m_9m9k8wylb$=uf3l9op&efc@k$6o1)c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['impalrodaempat.herokuapp.com']
 
 
 # Application definition
