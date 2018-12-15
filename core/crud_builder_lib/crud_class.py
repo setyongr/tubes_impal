@@ -29,6 +29,7 @@ class CrudBuilder:
 
     @login_required
     def index(self, request):
+        self.table.set_user(request.user)
         context = {
             'title': self.title,
             'table': self.table,

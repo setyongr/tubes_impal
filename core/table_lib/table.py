@@ -41,6 +41,9 @@ class BaseTable(object):
             used_data = list(self.queryset.values())
         return used_data
 
+    def set_user(self, user):
+        self.user = user
+
     def parse_action_url(self, url):
         kwargs = {}
 
@@ -67,13 +70,32 @@ class BaseTable(object):
         edit_action = getattr(self.opts, 'edit_action', None)
         delete_action = getattr(self.opts, 'delete_action', None)
 
-        if view_action:
+        view_role = getattr(self.opts, 'view_role', None)
+        edit_role = getattr(self.opts, 'edit_role', None)
+        delete_role = getattr(self.opts, 'delete_role', None)
+
+        show_view = view_action is not None
+
+        if show_view and view_role and self.user.jabatan not in view_role:
+            show_view = False
+
+        show_edit = edit_action is not None
+
+        if show_edit and view_role and self.user.jabatan not in edit_role:
+            show_edit = False
+
+        show_delete = view_action is not None
+
+        if show_delete and delete_role and self.user.jabatan not in delete_role:
+            show_delete = False
+
+        if show_view:
             urls["view"] = self.parse_action_url(view_action)
 
-        if edit_action:
+        if show_edit:
             urls["edit"] = self.parse_action_url(edit_action)
 
-        if delete_action:
+        if show_delete:
             urls["delete"] = self.parse_action_url(delete_action)
 
         return urls
@@ -109,3 +131,4 @@ class TableMetaClass(type):
 
 
 Table = TableMetaClass(str('Table'), (BaseTable,), {})
+

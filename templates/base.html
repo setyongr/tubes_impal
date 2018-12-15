@@ -36,6 +36,7 @@
                      alt="admin@bootstrapmaster.com">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
+                <span class="dropdown-item">{{ user.nama }} ({{ user.jabatan }})</span>
                 <a class="dropdown-item" href="{% url 'logout' %}">
                     <i class="fa fa-lock"></i> Logout</a>
             </div>
@@ -147,3 +148,4 @@
 <script src="{% static 'coreui/node_modules/@coreui/coreui/dist/js/coreui.min.js' %}"></script>
 </body>
 </html>
+
