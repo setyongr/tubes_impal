@@ -13,5 +13,6 @@
 Website juga dapat di buka di `http://impalrodaempat.herokuapp.com/`
 
 Default admin password
-username: admin
-password: admin
+
+- username: admin
+- password: admin
